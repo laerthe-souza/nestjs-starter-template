@@ -1,0 +1,11 @@
+services:
+  app:
+    build:
+      context: .
+      target: development
+      dockerfile: ./Dockerfile
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - .:/home/node/app
+    user: node
