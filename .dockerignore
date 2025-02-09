@@ -1,0 +1,26 @@
+# Directories
+.husky
+.git
+.vscode
+.devcontainer
+dist
+scripts
+tests
+coverage
+node_modules
+
+# Files
+.env.example
+.env
+.prettierrc
+.gitlab-ci.yml
+.gitignore
+.dockerignore
+.npmrc
+Dockerfile
+tsconfig.json
+docker-compose.yml
+eslint.config.mts
+vitest.config.mts
+commitlint.config.ts
+README.md
