@@ -1,9 +1,10 @@
-import { EnvsModule } from '@infrastructure/config/envs/envs.module';
 import { Module } from '@nestjs/common';
-import { LoggingModule } from '@shared/logging/logging.module';
+
+import { EnvModule } from '@infrastructure/config/env/env.module';
+import { LoggingModule } from '@infrastructure/config/logging/logging.module';
 
 @Module({
-  imports: [EnvsModule, LoggingModule],
+  imports: [EnvModule, LoggingModule],
   controllers: [],
   providers: [],
 })

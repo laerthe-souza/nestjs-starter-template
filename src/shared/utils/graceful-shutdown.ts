@@ -1,7 +1,6 @@
+import { INestApplication } from '@nestjs/common';
 import { Logger } from 'nestjs-pino';
 import { SignalConstants } from 'node:os';
-
-import { INestApplication } from '@nestjs/common';
 
 export function gracefulShutdown(app: INestApplication) {
   const logger = app.get(Logger);

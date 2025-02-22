@@ -1,7 +1,7 @@
+import { NestFactory } from '@nestjs/core';
 import helmet from 'helmet';
 import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
 
-import { NestFactory } from '@nestjs/core';
 import { gracefulShutdown } from '@shared/utils/graceful-shutdown';
 
 import { AppModule } from './app.module';

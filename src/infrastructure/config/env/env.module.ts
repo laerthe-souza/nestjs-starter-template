@@ -1,10 +1,10 @@
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import { validateEnvVariables } from './envs.validation';
+import { validateEnvVariables } from './env.validation';
 
 @Global()
 @Module({
   imports: [ConfigModule.forRoot({ validate: validateEnvVariables })],
 })
-export class EnvsModule {}
+export class EnvModule {}

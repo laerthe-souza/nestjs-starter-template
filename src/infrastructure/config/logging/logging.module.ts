@@ -1,6 +1,5 @@
-import { LoggerModule } from 'nestjs-pino';
-
 import { Global, Module } from '@nestjs/common';
+import { LoggerModule } from 'nestjs-pino';
 
 import { LoggingService } from './logging.service';
 
