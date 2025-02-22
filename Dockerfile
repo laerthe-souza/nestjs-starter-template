@@ -28,10 +28,9 @@ RUN yarn install --frozen-lockfile --ignore-scripts
 COPY --chown=node:node . ./
 RUN yarn build
 
-RUN yarn install --production --frozen-lockfile
+RUN yarn install --production --frozen-lockfile --ignore-scripts
 
-RUN mkdir -p /home/node/app/dist/tmp && \
-    chown -R node:node /home/node/app/dist && \
+RUN chown -R node:node /home/node/app/dist && \
     chmod -R 755 /home/node/app/dist
 
 # ---------- Production Stage ---------- #
