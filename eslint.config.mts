@@ -54,6 +54,15 @@ export default typescript.config(
           ts: 'never',
         },
       ],
+      'no-restricted-properties': [
+        'error',
+        {
+          object: 'process',
+          property: 'env',
+          message:
+            "Direct use of process.env is forbidden. Instead, import 'myEnv' to access environment variables.",
+        },
+      ],
       'no-useless-constructor': 'off',
       'lines-between-class-members': [
         'error',

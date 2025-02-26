@@ -24,6 +24,7 @@ export default defineConfig({
       '@domain': resolve(__dirname, './src/domain'),
       '@infrastructure': resolve(__dirname, './src/infrastructure'),
       '@shared': resolve(__dirname, './src/shared'),
+      '@tests': resolve(__dirname, './tests'),
     },
   },
 });

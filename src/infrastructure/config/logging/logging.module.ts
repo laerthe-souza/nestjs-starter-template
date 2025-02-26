@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { LoggerModule } from 'nestjs-pino';
 
+import { myEnv } from '../env';
 import { LoggingService } from './logging.service';
 
 @Global()
@@ -12,7 +13,7 @@ import { LoggingService } from './logging.service';
           context: 'HTTP',
         }),
         transport:
-          process.env.NODE_ENV === 'local'
+          myEnv.NODE_ENV === 'local'
             ? {
                 target: 'pino-pretty',
                 options: { singleLine: false },
@@ -22,8 +23,12 @@ import { LoggingService } from './logging.service';
           level(label) {
             return { level: label.toUpperCase() };
           },
+          bindings: bindings => ({
+            pid: bindings.pid,
+            host: bindings.hostname,
+          }),
         },
-        level: process.env.NODE_ENV === 'local' ? 'debug' : 'info',
+        level: myEnv.NODE_ENV === 'local' ? 'debug' : 'info',
       },
     }),
   ],
