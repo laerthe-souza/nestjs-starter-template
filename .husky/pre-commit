@@ -1,3 +1,11 @@
+echo "\n🔍 Checking for outdated dependencies..."
+
+if yarn outdated | grep -q "Package"; then
+  echo "\n🚨 WARNING: There are outdated dependencies. Consider updating them."
+else
+  echo "\n✅ No outdated dependencies found!"
+fi
+
 yarn validate-env-example
 yarn build
 yarn lint

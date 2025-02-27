@@ -6,7 +6,6 @@ RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 WORKDIR /home/node/app
 
 RUN echo '#!/bin/sh' > /home/node/start-dev.sh && \
-    echo '(yarn install --frozen-lockfile && echo "\n✅ Dependencies installed!") || echo "⚠️ Failed to install dependencies, please check your setup!"' >> /home/node/start-dev.sh && \
     echo 'echo "\n🚀 Your container is ready..."' >> /home/node/start-dev.sh && \
     echo 'echo "\n🔥 Execute \"docker compose exec -it app bash\" in another terminal to access the container"' >> /home/node/start-dev.sh && \
     echo 'tail -f /dev/null' >> /home/node/start-dev.sh
