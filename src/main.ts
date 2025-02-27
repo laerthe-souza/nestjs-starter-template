@@ -1,8 +1,9 @@
+import '@infrastructure/config/env';
+
 import { NestFactory } from '@nestjs/core';
 import helmet from 'helmet';
 import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
 
-import { myEnv } from '@infrastructure/config/env';
 import { gracefulShutdown } from '@shared/utils/graceful-shutdown';
 
 import { AppModule } from './app.module';

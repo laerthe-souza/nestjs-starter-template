@@ -2,4 +2,4 @@
 
 import { IEnvVariables } from './env.validation';
 
-export const myEnv = process.env as unknown as IEnvVariables;
+globalThis.myEnv = process.env as unknown as IEnvVariables;
