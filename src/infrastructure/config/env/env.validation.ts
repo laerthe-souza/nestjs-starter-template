@@ -1,16 +1,22 @@
 import { ZodError, z } from 'zod';
 
-enum ZodErrors {
-  required = 'Required variable',
-  invalid_url = 'Invalid url',
+import { IEnvironment } from '@shared/enums/environment.enum';
+
+enum IZodErrors {
+  REQUIRED = 'Required variable',
 }
 
+const environments = Object.values(IEnvironment) as unknown as readonly [
+  IEnvironment,
+  ...IEnvironment[],
+];
+
 const envVariablesSchema = z.object({
-  PORT: z.string({ required_error: ZodErrors.required }),
-  NODE_ENV: z.enum(['local', 'stage', 'prod'], {
-    required_error: ZodErrors.required,
+  NODE_ENV: z.enum(environments, {
+    error: IZodErrors.REQUIRED,
   }),
-  AUTHORIZED_DOMAINS: z.string().transform(value => value.split(',')),
+  PORT: z.string({ error: IZodErrors.REQUIRED }),
+  SERVICE_NAME: z.string({ error: IZodErrors.REQUIRED }),
 });
 
 export function validateEnvVariables(
@@ -19,14 +25,17 @@ export function validateEnvVariables(
   try {
     const parsedEnv = envVariablesSchema.parse(config);
 
+    globalThis.myEnv = parsedEnv;
+
     return parsedEnv;
   } catch (error) {
     if (error instanceof ZodError) {
-      const formattedErrors = error.errors.map(
-        data => `Env variable ${data.path[0]} error - REASON: ${data.message}`,
+      const formattedErrors = error.issues.map(
+        data =>
+          `Env variable ${data.path[0].toString()} error - ${data.message}`,
       );
 
-      throw Error(`\n\n${formattedErrors.join('\n')}\n`);
+      throw new Error(`\n\n${formattedErrors.join('\n')}\n`);
     } else {
       throw error;
     }

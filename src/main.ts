@@ -1,10 +1,8 @@
-import '@infrastructure/config/env';
-
 import { NestFactory } from '@nestjs/core';
 import helmet from 'helmet';
 import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
 
-import { gracefulShutdown } from '@shared/utils/graceful-shutdown';
+import { gracefulShutdown } from '@shared/helpers/graceful-shutdown.helper';
 
 import { AppModule } from './app.module';
 
@@ -14,7 +12,6 @@ async function bootstrap() {
   const logger = app.get(Logger);
 
   app.useLogger(logger);
-  app.enableCors({ credentials: true, origin: myEnv.AUTHORIZED_DOMAINS });
   app.use(helmet());
   app.useGlobalInterceptors(new LoggerErrorInterceptor());
   app.enableShutdownHooks();
@@ -42,4 +39,5 @@ async function bootstrap() {
   process.on('SIGTERM', gracefulShutdown(app));
   process.on('SIGINT', gracefulShutdown(app));
 }
+
 void bootstrap();

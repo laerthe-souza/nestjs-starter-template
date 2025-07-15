@@ -1,28 +1,29 @@
+import { FlatCompat } from '@eslint/eslintrc';
 import javascript from '@eslint/js';
 import tsParser from '@typescript-eslint/parser';
-import importPlugin from 'eslint-plugin-import';
-import importHelpers from 'eslint-plugin-import-helpers';
-import prettier from 'eslint-plugin-prettier';
 import globals from 'globals';
 import typescript from 'typescript-eslint';
 
-export default typescript.config(
-  javascript.configs.recommended,
-  importPlugin.flatConfigs.recommended,
+const compat = new FlatCompat({
+  baseDirectory: import.meta.dirname,
+  recommendedConfig: javascript.configs.recommended,
+});
+
+export default [
+  ...compat.plugins(
+    'import-helpers',
+    '@typescript-eslint',
+    'import',
+    'prettier',
+  ),
   ...typescript.configs.recommendedTypeChecked,
   {
     ignores: ['**/dist', '**/node_modules', '**/coverage'],
   },
   {
-    plugins: {
-      'import-helpers': importHelpers,
-      typescript: typescript.plugin,
-      prettier,
-    },
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
       },
       parser: tsParser,
       globals: {
@@ -40,6 +41,8 @@ export default typescript.config(
   },
   {
     rules: {
+      ...javascript.configs.recommended.rules,
+      'no-undef': 'off',
       'no-shadow': 'off',
       '@typescript-eslint/no-shadow': 'warn',
       'class-methods-use-this': 'off',
@@ -101,8 +104,7 @@ export default typescript.config(
           groups: [
             'module',
             [
-              '/^@application\\//',
-              '/^@domain\\//',
+              '/^@modules\\//',
               '/^@infrastructure\\//',
               '/^@shared\\//',
               '/^@tests\\//',
@@ -129,15 +131,9 @@ export default typescript.config(
     },
   },
   {
-    files: ['tests/**/*.spec.ts'],
-    rules: {
-      '@typescript-eslint/no-floating-promises': 'off',
-    },
-  },
-  {
     files: ['scripts/**/*.ts'],
     rules: {
       'no-console': 'off',
     },
   },
-);
+];

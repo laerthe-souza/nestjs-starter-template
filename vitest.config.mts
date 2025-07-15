@@ -13,17 +13,17 @@ export default defineConfig({
     passWithNoTests: true,
     coverage: {
       reporter: ['text', 'lcov', 'html'],
-      include: ['src/**/*.usecase.ts'],
+      include: ['src/modules/**/application/services/**'],
+      exclude: ['src/modules/**/dtos'],
     },
     include: ['tests/**/*.spec.ts'],
     exclude: ['node_modules'],
   },
   resolve: {
     alias: {
-      '@application': resolve(__dirname, './src/application'),
-      '@domain': resolve(__dirname, './src/domain'),
-      '@infrastructure': resolve(__dirname, './src/infrastructure'),
+      '@modules': resolve(__dirname, './src/modules'),
       '@shared': resolve(__dirname, './src/shared'),
+      '@infrastructure': resolve(__dirname, './src/infrastructure'),
       '@tests': resolve(__dirname, './tests'),
     },
   },
